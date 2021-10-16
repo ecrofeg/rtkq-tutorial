@@ -5,11 +5,14 @@ import "./index.css";
 import App from "./App";
 import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
+import { moviesApi } from "./api";
 
-const API_TOKEN = import.meta.env.VITE_API_TOKEN;
 const store = configureStore({
-	reducer: {},
-	middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
+	reducer: {
+		[moviesApi.reducerPath]: moviesApi.reducer,
+	},
+	middleware: (getDefaultMiddleware) =>
+		getDefaultMiddleware().concat(moviesApi.middleware),
 });
 
 ReactDOM.render(
