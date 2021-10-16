@@ -6,8 +6,10 @@ import App from "./App";
 import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
 
+const API_TOKEN = import.meta.env.VITE_API_TOKEN;
 const store = configureStore({
 	reducer: {},
+	middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
 });
 
 ReactDOM.render(
