@@ -21,6 +21,8 @@ export enum Type {
 
 export const moviesApi = createApi({
   reducerPath: 'movies',
+  refetchOnFocus: true,
+  tagTypes: ['Movie'],
   baseQuery: fetchBaseQuery({baseUrl: 'http://www.omdbapi.com/'}),
   endpoints: builder => ({
     searchMovie: builder.query<Search[], string>({
@@ -32,9 +34,16 @@ export const moviesApi = createApi({
           plot: 'full'
         }
       }),
+      providesTags: ['Movie'],
       transformResponse: (response: Response) => response.Search
+    }),
+    addMovie: builder.mutation<void, void>({
+      query: () => ({
+        url: '/add-movie'
+      }),
+      invalidatesTags: ['Movie'],
     })
   })
 })
 
-export const { useSearchMovieQuery } = moviesApi
+export const { useSearchMovieQuery, useAddMovieMutation } = moviesApi
